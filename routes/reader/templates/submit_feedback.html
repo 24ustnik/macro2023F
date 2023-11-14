@@ -1,0 +1,93 @@
+<!doctype html>
+<html>
+    <head>
+        <title>Submit Feedback</title>
+        <link href="/bootstrap.css" rel="stylesheet">
+
+        <style>
+            .logo-box {
+                width: 60px;
+                height: 60px;
+            }
+            .logo {
+                width: 70px;
+            }
+
+        </style>
+
+        <link href='https://fonts.googleapis.com/css?family=Abel' rel='stylesheet'>
+        <style>
+            body {
+                font-family: 'Abel';font-size: 22px;
+                 }
+        </style>
+    </head>
+
+    <body>
+      <!-- The Nav bar -->
+      <nav class="navbar navbar-expand-lg navbar-dark" style="background-color: rgb(238, 49, 36)">
+        <div class="container" style="background-color: rgb(238, 49, 36)">
+                <!-- put your own image here -->
+                <a href='/home'><img src="/mshlogo.png" class="logo rounded-circle d-inline-block align-text-top"></a>
+                
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="#">
+                            Submit Feedback Form
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">
+                            View Previous Feedback 
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">
+                            Credits to be Read 
+                        </a>
+                    </li>
+                </ul>
+                <form class="d-flex" role="search">
+                    <button id="btnSearch" class="btn btn-light" type="submit" formaction="/home">Log Out</button>
+                </form>
+            </div>
+            <!-- nav's inside container -->
+        </div>
+    </nav>
+<!-- END of the Navbar -->
+
+    <form action="/reader/provide_feedback" method="get"> 
+        <div class="container">
+            <div class="mt-4">
+                <label for="is_earned">Decision</label>
+                <select class="form-select" name="is_earned" aria-label=".form-select-sm" required>
+                    <option selected></option>
+                    <option value="1">Earned</option>
+                    <option value="0">Not Earned</option>
+                </select>
+            </div>
+            <div class="mt-4">
+                <label name="feedback" for="feedback" class="form-label">Feedback</label>
+                <textarea name="feedback" class="form-control" id="feedback" rows="3"></textarea>
+            </div>
+            <div>
+                <input type="hidden" id="pkid" name="pkid" value="{{pkid}}">
+            </div>
+            <div class="row mt-5" </div>
+            <div>
+                <!-- SUBMIT BUTTON -->
+                <button type="submit" class="btn btn-secondary">Submit</button>
+            </div>
+        </div>
+            
+
+
+        <script src="/bootstrap.bundle.js"></script>
+    </body>
+</html>

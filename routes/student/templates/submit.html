@@ -1,0 +1,109 @@
+<!doctype html>
+<!-- 
+    Bootstrap 5 navbar example
+
+    https://getbootstrap.com/docs/5.2/components/navbar/
+
+    Make sure to include the following files in the
+    same folder as this one:
+
+    * silksong.jpg
+    * jquery-3.7.1.min.js
+    * bootstrap.css
+    * bootstrap.bundle.js
+
+ -->
+<html>
+    <head>
+        <title>Student Home</title>
+        <link href="/bootstrap.css" rel="stylesheet">
+
+        <style>
+            .logo-box {
+                width: 90px;
+                height: 100px;
+            }
+            .logo {
+                width: 70px;
+            }
+
+        </style>
+    </head>
+
+    <body>
+        <html>
+            <head>
+            <link href='https://fonts.googleapis.com/css?family=Abel' rel='stylesheet'>
+            <style>
+            body {
+                font-family: 'Abel';font-size: 22px;
+            }
+            </style>
+            </head>
+            </html>
+
+<!-- The Nav bar -->
+        <nav class="navbar navbar-expand-lg navbar-dark" style="background-color: rgb(238, 49, 36)">
+            <div class="container" style="background-color: rgb(238, 49, 36)">
+
+                
+
+                    <!-- put your own image here -->
+                    <a href='/home'><img src="/mshlogo.png" class="logo rounded-circle d-inline-block align-text-top"></a>
+                    
+                </a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    </ul>
+                </div>
+                <!-- nav's inside container -->
+                <form class="d-flex" role="search">
+                    <button id="btnSearch" class="btn btn-light" type="submit" formaction="/home">Log Out</button>
+                </form>
+            </div>
+        </nav>
+<!-- END of the Navbar -->
+
+</body>
+<div class="container text-center">
+    
+    <div class="row mt-5"></div>
+
+    <div class="row align-items-start">
+      {% set i = 0 %}
+      {% for credit in results %}
+      <div class="col-sm-4">
+        <div class="card" style="width: 18rem;">
+            <img src="/{{credit.credit_id}}_icon.png" class="card-img-top" alt="...">
+            <div class="card-body {% if credit.is_earned == 1 %}bg-apple-green{% elif credit.is_earned == None and credit.app_cycle_title == 'fall2023' %}bg-apple-yellow{% elif credit.is_earned != 0 %}bg-apple-gray{% endif %}" style="{% if credit.is_earned == 0 %}background-color: rgb(255, 201, 94){% endif %}">
+              <h5 class="card-title">{% if credit.is_earned == 1 %} Earned {% elif credit.is_earned == 0 %} Previously Applied {% elif credit.is_earned == None and credit.app_cycle_title == 'fall2023' %} Applied this Cycle {% else %} Not Yet Applied {% endif %}</h5>
+              <p class="card-text">{{credit.credit_name}}</p>
+              <p class="card-text">{% if credit.is_earned == None and credit.app_cycle_title == 'fall2023' %} Panel Time: {{credit.panel_time}}{% endif %}</p>
+              {% if credit.is_earned == 1 %}
+              <a href="/student/previous_submission?credit_id={{credit.credit_id}}&credit_name={{credit.credit_name}}" class="btn btn-primary" style="background-color: rgb(238, 49, 36)">See Submission</a>
+              {% elif credit.is_earned == 0 %}
+              <a href="/student/submit_application?credit_id={{credit.credit_id}}&credit_name={{credit.credit_name}}" class="btn btn-primary" style="background-color: rgb(238, 49, 36)">Submit Credit</a>
+              <a href="/student/previous_submission?credit_id={{credit.credit_id}}&credit_name={{credit.credit_name}}" class="btn btn-primary" style="background-color: rgb(238, 49, 36)">See Submission</a>
+              {% elif credit.is_earned == 0 %}
+              <a href="/student/submit_application?credit_id={{credit.credit_id}}&credit_name={{credit.credit_name}}" class="btn btn-primary" style="background-color: rgb(238, 49, 36)">Submit Credit</a>
+              <a href="/student/previous_submission?credit_id={{credit.credit_id}}&credit_name={{credit.credit_name}}" class="btn btn-primary" style="background-color: rgb(238, 49, 36)">See Submission</a>
+              {% elif credit.is_earned == None and credit.app_cycle_title == 'fall2023' %}
+              <a href="/student/previous_submission?credit_id={{credit.credit_id}}&credit_name={{credit.credit_name}}" class="btn btn-primary" style="background-color: rgb(238, 49, 36)">See Submission</a>
+              {% else %}
+              <a href="/student/submit_application?credit_id={{credit.credit_id}}&credit_name={{credit.credit_name}}" class="btn btn-primary" style="background-color: rgb(238, 49, 36)">Submit Credit</a>
+              {% endif %}
+            </div>        
+        </div>
+        <div class="row mt-5"></div>
+      </div>
+      {% endfor %}
+    </div>
+
+    <div class="row mt-5"></div>
+
+  </div>
+</html>

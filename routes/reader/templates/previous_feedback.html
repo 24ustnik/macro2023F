@@ -1,0 +1,116 @@
+<!doctype html>
+<html>
+    <head>
+        <title>Previous Feedback</title>
+        <link href="/bootstrap.css" rel="stylesheet">
+
+        <style>
+            .logo-box {
+                width: 60px;
+                height: 60px;
+            }
+            .logo {
+                width: 70px;
+            }
+
+        </style>
+
+        <link href='https://fonts.googleapis.com/css?family=Abel' rel='stylesheet'>
+        <style>
+            body {
+                font-family: 'Abel';font-size: 22px;
+                 }
+        </style>
+    </head>
+
+    <body>
+
+<!-- The Nav bar -->
+<nav class="navbar navbar-expand-lg navbar-dark" style="background-color: rgb(238, 49, 36)">
+    <div class="container" style="background-color: rgb(238, 49, 36)">
+
+            <!-- put your own image here -->
+            <a href='/home'><img src="/mshlogo.png" class="logo rounded-circle d-inline-block align-text-top"></a>
+            
+        </a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                <li class="nav-item">
+                    <a class="nav-link active" href="/reader/previous">
+                        View Previous Feedback 
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/reader/home">
+                        Credits to be Read 
+                    </a>
+                </li>
+            </ul>
+            <form class="d-flex" role="search">
+                <button id="btnSearch" class="btn btn-light" type="submit" formaction="/home">Log Out</button>
+            </form>
+        </div>
+        <!-- nav's inside container -->
+    </div>
+</nav>
+<!-- END of the Navbar -->   
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="text-center mt-3"><h2>{% if decision == '1' %}
+            Previous Successful Applications
+            {% elif decision == '0' %}
+            Previous Not Earned Credit Applications
+            {% else %}
+            Previous Applications
+            {% endif %}
+
+        </h2></div> 
+    </div>
+    <div class="row">
+        <div class="col-sm-4"></div>
+        <div class="col-sm-8 position-absolute end-0 me-5 mt-4">
+            <table class="table">
+                <thead>
+                  <tr class="table-secondary">
+                    <th>Student Name</th>
+                    <th>Credit Name</th>
+                    <th>Rationale</th>
+                    <th>Cycle</th>
+                  </tr>
+                  <tbody>
+                    {% for application in previous_applications_list %}
+                    <tr class="table-secondary">
+                      <td>{{application.fname}}, {{application.lname}}</td>
+                      <td>{{application.credit_name}}</td>
+                      <td><a href="{{application.rationale}}" target="_blank"><button>View Rationale</button></a></td>
+                      <td>{{application.app_cycle_title}}</td>
+                    </tr>
+                    {% endfor %}
+                </thead>
+              </table>
+            </div>
+        </div>
+    <form action="/reader/previous">
+        <div class="row col-sm-3 mt-4 ms-2">
+            <select name="decision" class="form-select mb-2" aria-label="Default select example">
+                <option selected>Decision</option>
+                <option value="1">Earned</option>
+                <option value="0">Not Earned</option>
+            </select>
+            <select name="credit_id" class="form-select mb-2" aria-label="Default select example">
+                <option selected>Credit</option>
+                {% for credit in credits_list %}
+                <option value="{{credit.pkid}}">{{credit.credit_name}}</option>
+                {% endfor %}
+            </select>
+            <!-- SUBMIT BUTTON -->
+            <button type="submit" class="btn btn-secondary">Filter</button>
+    </form>           
+<script src="/bootstrap.bundle.js"></script>
+</body>
+</html>

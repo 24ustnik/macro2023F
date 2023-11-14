@@ -1,0 +1,117 @@
+<!doctype html>
+<html>
+    <head>
+        <title>Admin Home</title>
+        <link href="/bootstrap.css" rel="stylesheet">
+
+        <style>
+            .logo-box {
+                width: 60px;
+                height: 60px;
+            }
+            .logo {
+                width: 70px;
+            }
+
+        </style>
+
+        <link href='https://fonts.googleapis.com/css?family=Abel' rel='stylesheet'>
+        <style>
+            body {
+                font-family: 'Abel';font-size: 22px;
+                 }
+        </style>
+    </head>
+
+    <body>
+
+<!-- The Nav bar -->
+        <nav class="navbar navbar-expand-lg navbar-dark" style="background-color: rgb(238, 49, 36)">
+            <div class="container" style="background-color: rgb(238, 49, 36)">
+                    <!-- put your own image here -->
+                    <a href='/home'><img src="/mshlogo.png" class="logo rounded-circle d-inline-block align-text-top"></a>
+                    
+                
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                        <li class="nav-item">
+                            <a class="nav-link active" aria-current="page" href="#">
+                                View Submissions
+                            </a>
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                Assign
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li><a class="dropdown-item" href="/admindy/asign_reader">Assign Reader</a></li>
+                                <li><a class="dropdown-item" href="/admindy/asign_time">Assign Panel Time</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                    <form class="d-flex" role="search">
+                        <button id="btnSearch" class="btn btn-light" type="submit" formaction="/home">Log Out</button>
+                    </form>
+                </div>
+                <!-- nav's inside container -->
+            </div>
+        </nav>
+<!-- END of the Navbar -->
+<div class="container-fluid">
+    <div class="row">
+        <div class="text-center mt-3"><h2>October 2023 Credit Application Submissions</h2></div> 
+    </div>
+    <div class="row">
+        <div class="col-sm-4"></div>
+        <div class="col-sm-8 position-absolute end-0 me-5 mt-4">
+            <table class="table">
+                <thead>
+                  <tr class="table-secondary">
+                    <th>Student Name</th>
+                    <th>Credit Name</th>
+                    <th>Graduation Year</th>
+                  </tr>
+                  <tbody>
+                    {% for item in my_applications %}
+                    {% if item.is_earned == 1 %}
+                    <tr class="table-apple-green">
+                    {% elif item.is_earned == 0 %}
+                    <tr class="table-danger">
+                    {% else %}
+                    <tr class="table-secondary">
+                    {% endif %}
+                      <td>{{item.lname}}, {{item.fname}}</td>
+                      <td>{{item.credit_name}}</td>
+                      <td>{{item.graduation_year}}</td> 
+                    </tr>
+                    {% endfor %}
+                </thead>
+              </table>
+            </div>
+        </div>
+    <form action="/admindy/submissions">
+        <div class="row col-sm-3 mt-4 ms-2">
+            <select name="graduation_year" class="form-select mb-2" aria-label="Default select example">
+                <option selected>Graduation Year</option>
+                <option value="2027">2027</option>
+                <option value="2026">2026</option>
+                <option value="2025">2025</option>
+                <option value="2024">2024</option>
+            </select>
+            <select name="credit_id" class="form-select mb-2" aria-label="Default select example">
+                <option selected>Credit</option>
+                {% for credit in credits_list %}
+                <option value="{{credit.pkid}}">{{credit.credit_name}}</option>
+                {% endfor %}
+            </select>
+
+            <button type="submit" class="btn btn-secondary">Filter</button>
+        </div>
+    </form>           
+<script src="/bootstrap.bundle.js"></script>
+</body>
+</html>
